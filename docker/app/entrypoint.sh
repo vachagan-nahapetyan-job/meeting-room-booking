@@ -22,13 +22,11 @@ chown -R www-data:www-data storage bootstrap/cache
 
 php artisan key:generate --force
 
-echo "Waiting for database..."
+# Simple sleep - MySQL takes ~5-10 seconds to initialize
+echo "Waiting 2 seconds for database to initialize..."
+sleep 2
 
-until php artisan migrate:status > /dev/null 2>&1
-do
-  sleep 2
-done
-
+# This works whether migrations table exists or not
 php artisan migrate --force --seed
 
 exec php-fpm
