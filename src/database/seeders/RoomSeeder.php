@@ -9,6 +9,11 @@ class RoomSeeder extends Seeder
 {
     public function run(): void
     {
+        // Skip if rooms already exist
+        if (DB::table('rooms')->count() > 0) {
+            return;
+        }
+
         $rooms = [
             ['name' => 'Alpha', 'location' => 'Floor 1, Room 101', 'capacity' => 6],
             ['name' => 'Beta',  'location' => 'Floor 1, Room 102', 'capacity' => 10],
@@ -17,7 +22,7 @@ class RoomSeeder extends Seeder
         ];
 
         foreach ($rooms as $room) {
-            DB::table('rooms')->insertOrIgnore(array_merge($room, [
+            DB::table('rooms')->insert(array_merge($room, [
                 'created_at' => now(),
                 'updated_at' => now(),
             ]));
