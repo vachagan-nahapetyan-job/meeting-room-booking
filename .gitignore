@@ -1,0 +1,12 @@
+/src/vendor/
+/src/node_modules/
+/src/.env
+/src/.phpunit.result.cache
+/src/storage/framework/cache/data/*
+/src/storage/framework/sessions/*
+/src/storage/framework/views/*
+/src/storage/logs/*.log
+/src/bootstrap/cache/*.php
+
+.DS_Store
+Thumbs.db
