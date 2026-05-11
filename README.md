@@ -1,24 +1,41 @@
 # Meeting Room Booking — Microservice
 
-Микросервис бронирования переговорных комнат. JSON API на Laravel 12, MySQL, Docker.
-
-## Стек
-
-- **PHP** 8.3
-- **Laravel** 12
-- **MySQL** 8.0
-- **Nginx** 1.25
-- **Docker** / Docker Compose
+> 🇷🇺 [Русская версия](#-быстрый-старт) | 🇬🇧 [English version](#-quick-start)
 
 ---
 
-## Быстрый старт
+## 🇬🇧 Quick Start
 
-​```bash
+```bash
 git clone https://github.com/vachagan-nahapetyan-job/meeting-room-booking.git
 cd meeting-room-booking
 docker compose up -d --build
-​```
+```
+
+> This is the only command needed. Everything else is automatic.
+
+First run takes **~1-2 minutes** — composer installs dependencies inside the container.
+
+What happens automatically on start:
+1. `composer install` — install dependencies
+2. `php artisan key:generate` — generate APP_KEY
+3. `php artisan migrate` — create tables
+4. `php artisan db:seed` — seed 4 meeting rooms (Alpha, Beta, Gamma, Delta)
+
+Verify it works:
+```bash
+curl http://localhost:8080/api/rooms
+```
+
+---
+
+## 🇷🇺 Быстрый старт
+
+```bash
+git clone https://github.com/vachagan-nahapetyan-job/meeting-room-booking.git
+cd meeting-room-booking
+docker compose up -d --build
+```
 
 > Это единственная команда. Ничего больше не нужно.
 
@@ -31,9 +48,20 @@ docker compose up -d --build
 4. `php artisan db:seed` — 4 тестовые переговорки (Alpha, Beta, Gamma, Delta)
 
 Проверка:
-​```bash
+```bash
 curl http://localhost:8080/api/rooms
-​```
+```
+
+---
+
+## Stack
+
+- **PHP** 8.3
+- **Laravel** 12
+- **MySQL** 8.0
+- **Nginx** 1.25
+- **Docker** / Docker Compose
+
 ---
 
 ## API Reference
@@ -46,9 +74,9 @@ http://localhost:8080/api
 
 ---
 
-### Переговорки (Rooms)
+### Rooms
 
-#### Список всех комнат
+#### List all rooms
 
 ```
 GET /api/rooms
@@ -76,7 +104,7 @@ GET /api/rooms
 
 ---
 
-#### Детали комнаты
+#### Room details
 
 ```
 GET /api/rooms/{id}
@@ -96,9 +124,9 @@ GET /api/rooms/{id}
 
 ---
 
-### Бронирования (Bookings)
+### Bookings
 
-#### Создать бронирование
+#### Create a booking
 
 ```
 POST /api/bookings
@@ -116,15 +144,15 @@ Content-Type: application/json
 }
 ```
 
-| Поле | Тип | Обязательное | Описание |
-|------|-----|:---:|---------|
-| `user_id` | integer | ✅ | ID пользователя (без авторизации) |
-| `room_id` | integer | ✅ | ID переговорки |
-| `title` | string | ✅ | Название встречи (max 255) |
-| `starts_at` | datetime | ✅ | Начало (`Y-m-d H:i:s`), должно быть в будущем |
-| `ends_at` | datetime | ✅ | Конец (`Y-m-d H:i:s`), должно быть позже `starts_at` |
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `user_id` | integer | ✅ | User ID (no auth — just pass UID) |
+| `room_id` | integer | ✅ | Room ID (must exist) |
+| `title` | string | ✅ | Meeting title (max 255) |
+| `starts_at` | datetime | ✅ | Start time (`Y-m-d H:i:s`), must be in the future |
+| `ends_at` | datetime | ✅ | End time (`Y-m-d H:i:s`), must be after `starts_at` |
 
-**Response 201 — успешно создано:**
+**Response 201 — created:**
 ```json
 {
   "data": {
@@ -145,26 +173,26 @@ Content-Type: application/json
 }
 ```
 
-**Response 409 — конфликт времени:**
+**Response 409 — time slot conflict:**
 ```json
 {
-  "message": "Переговорка уже занята на выбранное время."
+  "message": "This room is already booked for the selected time slot."
 }
 ```
 
-**Response 422 — ошибка валидации:**
+**Response 422 — validation error:**
 ```json
 {
-  "message": "Ошибка валидации.",
+  "message": "Validation error.",
   "errors": {
-    "starts_at": ["Нельзя бронировать в прошлом."]
+    "starts_at": ["Booking in the past is not allowed."]
   }
 }
 ```
 
 ---
 
-#### Мои бронирования (по пользователю)
+#### My bookings (by user)
 
 ```
 GET /api/bookings?user_id={user_id}
@@ -190,39 +218,30 @@ GET /api/bookings?user_id={user_id}
       "created_at": "2025-05-11 09:00:00"
     }
   ],
-  "links": {
-    "first": "http://localhost:8080/api/bookings?user_id=42&page=1",
-    "last": "http://localhost:8080/api/bookings?user_id=42&page=1",
-    "prev": null,
-    "next": null
-  },
-  "meta": {
-    "current_page": 1,
-    "per_page": 20,
-    "total": 1
-  }
+  "links": { "first": "...", "last": "...", "prev": null, "next": null },
+  "meta": { "current_page": 1, "per_page": 20, "total": 1 }
 }
 ```
 
 ---
 
-#### Бронирования по комнате
+#### Bookings by room
 
 ```
 GET /api/rooms/{room_id}/bookings
 ```
 
-**Response 200** — аналогичная пагинированная структура.
+**Response 200** — same paginated structure as above.
 
 ---
 
-## Примеры curl
+## curl Examples
 
 ```bash
-# Список комнат
+# List rooms
 curl http://localhost:8080/api/rooms
 
-# Создать бронирование
+# Create a booking
 curl -X POST http://localhost:8080/api/bookings \
   -H "Content-Type: application/json" \
   -d '{
@@ -233,43 +252,43 @@ curl -X POST http://localhost:8080/api/bookings \
     "ends_at": "2025-06-10 11:00:00"
   }'
 
-# Мои бронирования
+# My bookings
 curl "http://localhost:8080/api/bookings?user_id=42"
 
-# Бронирования конкретной комнаты
+# Bookings for a specific room
 curl http://localhost:8080/api/rooms/1/bookings
 ```
 
 ---
 
-## Make-команды
+## Make Commands
 
-| Команда | Описание |
-|---------|---------|
-| `make build` | Сборка и запуск |
-| `make up` | Запуск без пересборки |
-| `make down` | Остановка |
-| `make shell` | Войти в контейнер app |
-| `make fresh` | Пересоздать БД + сиды |
-| `make test` | Запустить тесты |
-| `make logs` | Логи контейнеров |
-| `make routes` | Список маршрутов |
+| Command | Description |
+|---------|-------------|
+| `make build` | Build and start |
+| `make up` | Start without rebuild |
+| `make down` | Stop |
+| `make shell` | Enter app container |
+| `make fresh` | Recreate DB + seeds |
+| `make test` | Run tests |
+| `make logs` | Container logs |
+| `make routes` | List routes |
 
 ---
 
-## Логика проверки конфликтов
+## Conflict Detection Logic
 
-Два слота пересекаются, если:
+Two slots overlap if:
 
 ```
 existing.starts_at < new.ends_at  AND  existing.ends_at > new.starts_at
 ```
 
-Это покрывает все сценарии: полное перекрытие, частичное, вложенное.
+This covers all cases: full overlap, partial overlap, and nested slots.
 
 ---
 
-## Структура проекта
+## Project Structure
 
 ```
 meeting-room-booking/
@@ -279,7 +298,7 @@ meeting-room-booking/
 │   │   └── entrypoint.sh
 │   └── nginx/
 │       └── default.conf
-├── src/                          # Laravel приложение
+├── src/                          # Laravel application
 │   ├── app/
 │   │   ├── Http/
 │   │   │   ├── Controllers/
