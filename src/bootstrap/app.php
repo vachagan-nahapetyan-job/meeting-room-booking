@@ -22,9 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (ValidationException $e, Request $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
-                    'message' => 'Ошибка валидации.',
-                    'errors'  => $e->errors(),
-                ], 422);
+                'message' => 'Validation error.',
+                'errors'  => $e->errors(),
+            ], 422);
             }
         });
 
@@ -32,8 +32,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
-                    'message' => 'Ресурс не найден.',
-                ], 404);
+                'message' => 'Resource not found.',
+            ], 404);
             }
         });
     })

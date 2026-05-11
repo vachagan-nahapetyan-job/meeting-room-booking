@@ -22,7 +22,7 @@ class BookingService
 
         if ($conflict) {
             throw new \RuntimeException(
-                'Переговорка уже занята на выбранное время.'
+                'This room is already booked for the selected time slot.'
             );
         }
 

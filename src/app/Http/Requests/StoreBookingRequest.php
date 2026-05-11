@@ -23,11 +23,11 @@ class StoreBookingRequest extends FormRequest
     }
 
     public function messages(): array
-    {
-        return [
-            'starts_at.after' => 'Нельзя бронировать в прошлом.',
-            'ends_at.after'   => 'ends_at должен быть позже starts_at.',
-            'room_id.exists'  => 'Переговорка не найдена.',
-        ];
-    }
+{
+    return [
+        'starts_at.after' => 'Booking in the past is not allowed.',
+        'ends_at.after'   => 'ends_at must be after starts_at.',
+        'room_id.exists'  => 'Room not found.',
+    ];
+}
 }
