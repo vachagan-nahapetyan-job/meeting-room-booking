@@ -3,15 +3,26 @@ set -e
 
 cd /var/www
 
-composer install
-# Fix storage and cache permissions
+# Create required Laravel directories
+mkdir -p bootstrap/cache
+mkdir -p storage/framework/cache
+mkdir -p storage/framework/sessions
+mkdir -p storage/framework/views
+mkdir -p storage/logs
+
+# Install dependencies if vendor missing
+if [ ! -d "vendor" ]; then
+    composer install --no-interaction --prefer-dist
+fi
+
+# Permissions
 chmod -R 775 storage bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 
-# Generate app key if not set
+# Generate app key
 php artisan key:generate --force
 
-# Run migrations and seed
+# Run migrations + seed
 php artisan migrate --force --seed
 
 # Start PHP-FPM
