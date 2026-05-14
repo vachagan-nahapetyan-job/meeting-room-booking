@@ -152,8 +152,8 @@ Content-Type: application/json
   "user_id": 42,
   "room_id": 1,
   "title": "Sprint Planning",
-  "starts_at": "2025-06-10 10:00:00",
-  "ends_at": "2025-06-10 11:00:00"
+  "starts_at": "2026-12-10 10:00:00",
+  "ends_at": "2026-12-10 11:00:00"
 }
 ```
 
@@ -177,10 +177,10 @@ Content-Type: application/json
       "name": "Alpha",
       "location": "Floor 1, Room 101",
     },
-    "starts_at": "2025-06-10 10:00:00",
-    "ends_at": "2025-06-10 11:00:00",
+    "starts_at": "2026-12-10 10:00:00",
+    "ends_at": "2026-12-10 11:00:00",
     "duration_minutes": 60,
-    "created_at": "2025-05-11 09:00:00"
+    "created_at": "2026-12-11 09:00:00"
   }
 }
 ```
@@ -223,10 +223,10 @@ GET /api/bookings?user_id={user_id}
         "name": "Alpha",
         "location": "Floor 1, Room 101",
       },
-      "starts_at": "2025-06-10 10:00:00",
-      "ends_at": "2025-06-10 11:00:00",
+      "starts_at": "2026-12-10 10:00:00",
+      "ends_at": "2026-12-10 11:00:00",
       "duration_minutes": 60,
-      "created_at": "2025-05-11 09:00:00"
+      "created_at": "2026-12-11 09:00:00"
     }
   ],
   "links": { "first": "...", "last": "...", "prev": null, "next": null },
@@ -259,8 +259,8 @@ curl -X POST http://localhost:8080/api/bookings \
     "user_id": 42,
     "room_id": 1,
     "title": "Sprint Planning",
-    "starts_at": "2025-06-10 10:00:00",
-    "ends_at": "2025-06-10 11:00:00"
+    "starts_at": "2026-12-31 10:00:00",
+    "ends_at": "2026-12-31 11:00:00"
   }'
 
 # My bookings

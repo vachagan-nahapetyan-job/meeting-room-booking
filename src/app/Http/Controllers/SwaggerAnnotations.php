@@ -31,10 +31,10 @@ namespace App\Http\Controllers;
  *     @OA\Property(property="user_id",           type="integer", example=42),
  *     @OA\Property(property="title",             type="string",  example="Sprint Planning"),
  *     @OA\Property(property="room",              ref="#/components/schemas/Room"),
- *     @OA\Property(property="starts_at",         type="string",  format="datetime", example="2025-06-10 10:00:00"),
- *     @OA\Property(property="ends_at",           type="string",  format="datetime", example="2025-06-10 11:00:00"),
+ *     @OA\Property(property="starts_at",         type="string",  format="datetime", example="2026-12-10 10:00:00"),
+ *     @OA\Property(property="ends_at",           type="string",  format="datetime", example="2026-12-10 11:00:00"),
  *     @OA\Property(property="duration_minutes",  type="integer", example=60),
- *     @OA\Property(property="created_at",        type="string",  format="datetime", example="2025-05-11 09:00:00")
+ *     @OA\Property(property="created_at",        type="string",  format="datetime", example="2026-12-11 09:00:00")
  * )
  *
  * @OA\Schema(
