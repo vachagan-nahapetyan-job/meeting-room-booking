@@ -9,7 +9,7 @@
 ```bash
 git clone https://github.com/vachagan-nahapetyan-job/meeting-room-booking.git
 cd meeting-room-booking
-docker compose up -d --build
+docker compose up  --build
 ```
 
 > This is the only command needed. Everything else is automatic.
