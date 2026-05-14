@@ -26,9 +26,10 @@ class Booking extends Model
     }
 
     /**
-     * Scope: пересечение с заданным временным слотом (для проверки конфликтов).
-     * Бронирование пересекается, если starts_at < $endsAt AND ends_at > $startsAt
+     * Scope to find overlapping bookings for a given time range.
+     * An overlapping booking occurs if starts_at < $endsAt AND ends_at > $startsAt
      */
+
     public function scopeOverlapping($query, string $startsAt, string $endsAt, ?int $excludeId = null)
     {
         $query->where('starts_at', '<', $endsAt)

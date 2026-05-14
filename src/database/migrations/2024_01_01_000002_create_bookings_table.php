@@ -17,7 +17,7 @@ return new class extends Migration
             $table->dateTime('ends_at');
             $table->timestamps();
 
-            // Индекс для быстрого поиска пересечений
+            //Index for fast overlap checks
             $table->index(['room_id', 'starts_at', 'ends_at']);
             $table->index('user_id');
         });

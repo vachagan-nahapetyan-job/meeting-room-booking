@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
        
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // JSON-ответ для валидационных ошибок
+        // Validation errors JSON response
         $exceptions->render(function (ValidationException $e, Request $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
@@ -28,7 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
 
-        // 404 для несуществующих ресурсов
+        //404 Not Found JSON response
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
