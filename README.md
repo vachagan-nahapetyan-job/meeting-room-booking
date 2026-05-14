@@ -22,9 +22,29 @@ What happens automatically on start:
 3. `php artisan migrate` — create tables
 4. `php artisan db:seed` — seed 4 meeting rooms (Alpha, Beta, Gamma, Delta)
 
-Verify it works:
-```bash
-curl http://localhost:8080/api/rooms
+---
+
+Verify it works.The API will be available at:
+
+```
+http://localhost:8080
+
+```.
+ 
+---
+
+## 📖 Swagger UI 
+```
+http://localhost:8000/api/documentation
+
+```
+---
+
+## Rooms List 
+
+```
+http://localhost:8080/api/rooms
+
 ```
 
 ---
@@ -48,10 +68,10 @@ docker compose up -d --build
 4. `php artisan db:seed` — 4 тестовые переговорки (Alpha, Beta, Gamma, Delta)
 
 Проверка:
-```bash
-curl http://localhost:8080/api/rooms
 ```
+http://localhost:8080
 
+```
 ---
 
 ## Stack
