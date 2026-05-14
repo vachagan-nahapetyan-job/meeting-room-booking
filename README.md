@@ -90,13 +90,11 @@ GET /api/rooms
       "id": 1,
       "name": "Alpha",
       "location": "Floor 1, Room 101",
-      "capacity": 6
     },
     {
       "id": 2,
       "name": "Beta",
       "location": "Floor 1, Room 102",
-      "capacity": 10
     }
   ]
 }
@@ -117,7 +115,6 @@ GET /api/rooms/{id}
     "id": 1,
     "name": "Alpha",
     "location": "Floor 1, Room 101",
-    "capacity": 6
   }
 }
 ```
@@ -163,7 +160,6 @@ Content-Type: application/json
       "id": 1,
       "name": "Alpha",
       "location": "Floor 1, Room 101",
-      "capacity": 6
     },
     "starts_at": "2025-06-10 10:00:00",
     "ends_at": "2025-06-10 11:00:00",
@@ -210,7 +206,6 @@ GET /api/bookings?user_id={user_id}
         "id": 1,
         "name": "Alpha",
         "location": "Floor 1, Room 101",
-        "capacity": 6
       },
       "starts_at": "2025-06-10 10:00:00",
       "ends_at": "2025-06-10 11:00:00",

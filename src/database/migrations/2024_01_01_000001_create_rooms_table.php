@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('location')->nullable();
-            $table->unsignedSmallInteger('capacity')->default(1);
             $table->timestamps();
         });
     }

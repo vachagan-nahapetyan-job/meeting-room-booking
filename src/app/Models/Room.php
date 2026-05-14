@@ -10,7 +10,6 @@ class Room extends Model
     protected $fillable = [
         'name',
         'location',
-        'capacity',
     ];
 
     public function bookings(): HasMany

@@ -19,7 +19,6 @@ class BookingTest extends TestCase
         $this->room = Room::create([
             'name'     => 'Test Room',
             'location' => 'Floor 1',
-            'capacity' => 8,
         ]);
     }
 

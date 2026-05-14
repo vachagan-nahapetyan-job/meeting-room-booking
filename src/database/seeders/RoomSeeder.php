@@ -15,10 +15,10 @@ class RoomSeeder extends Seeder
         }
 
         $rooms = [
-            ['name' => 'Alpha', 'location' => 'Floor 1, Room 101', 'capacity' => 6],
-            ['name' => 'Beta',  'location' => 'Floor 1, Room 102', 'capacity' => 10],
-            ['name' => 'Gamma', 'location' => 'Floor 2, Room 201', 'capacity' => 4],
-            ['name' => 'Delta', 'location' => 'Floor 3, Room 301', 'capacity' => 20],
+            ['name' => 'Alpha', 'location' => 'Floor 1, Room 101'],
+            ['name' => 'Beta',  'location' => 'Floor 1, Room 102'],
+            ['name' => 'Gamma', 'location' => 'Floor 2, Room 201'],
+            ['name' => 'Delta', 'location' => 'Floor 3, Room 301'],
         ];
 
         foreach ($rooms as $room) {
