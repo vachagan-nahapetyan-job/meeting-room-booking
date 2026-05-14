@@ -5,35 +5,40 @@ namespace App\Services;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class BookingService
 {
     /**
-     * Создать бронирование с проверкой на пересечение времён.
+     * Creates a new booking if the time slot is available for the specified room.
      *
-     * @throws \RuntimeException если слот уже занят
+     * @throws \RuntimeException if slot is already booked.
      */
     public function create(array $data): Booking
     {
-        $conflict = Booking::where('room_id', $data['room_id'])
-            ->overlapping($data['starts_at'], $data['ends_at'])
-            ->exists();
+        return Cache::lock('room_booking_' . $data['room_id'], 10)->block(5, function () use ($data) {
 
-        if ($conflict) {
-            throw new \RuntimeException(
-                'This room is already booked for the selected time slot.'
-            );
-        }
+            return DB::transaction(function () use ($data) {
+                // Perform the overlap check
+                $exists = Booking::where('room_id', $data['room_id'])
+                    ->overlapping($data['starts_at'], $data['ends_at'])
+                    ->exists();
 
-        $booking = Booking::create($data);
-        $booking->load('room');
 
-        return $booking;
+                if ($exists) {
+                    throw new \RuntimeException(
+                        'This room is already booked for the selected time slot.'
+                    );
+                }
+
+                return Booking::create($data);
+            });
+        });
     }
 
     /**
-     * Список бронирований конкретного пользователя.
+     * Lists bookings for a specific user.
      */
     public function listByUser(int $userId): LengthAwarePaginator
     {
@@ -44,11 +49,11 @@ class BookingService
     }
 
     /**
-     * Список бронирований конкретной комнаты.
+     * Lists bookings for a specific room.
      */
     public function listByRoom(int $roomId): LengthAwarePaginator
     {
-        // Убедимся, что комната существует
+        // Ensure the room exists
         Room::findOrFail($roomId);
 
         return Booking::with('room')
