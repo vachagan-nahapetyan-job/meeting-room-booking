@@ -5,6 +5,21 @@ cd /var/www
 
 echo "🚀 Starting Laravel..."
 
+# Ensure writable dirs (safe in bind mount)
+mkdir -p \
+    storage/app/public \
+    storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/testing \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
+
+chmod -R 775 storage bootstrap/cache || true
+
+# Fix permissions ONLY inside container runtime (no host chown)
+chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
+
 # Ensure .env exists
 if [ ! -f .env ]; then
     cp .env.example .env
