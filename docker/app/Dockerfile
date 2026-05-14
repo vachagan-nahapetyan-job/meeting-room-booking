@@ -9,7 +9,9 @@ RUN apk add --no-cache \
     libxml2-dev \
     zip \
     unzip \
-    mysql-client
+    mysql-client \
+    bash \
+    shadow
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
@@ -22,11 +24,7 @@ WORKDIR /var/www
 # Copy existing application directory
 COPY ./src /var/www
 
-# Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader 2>/dev/null || true
-
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache 2>/dev/null || true
-
+# Copy entrypoint script
 COPY docker/app/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
