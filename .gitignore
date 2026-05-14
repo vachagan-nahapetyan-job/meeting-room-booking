@@ -2,11 +2,26 @@
 /src/node_modules/
 /src/.env
 /src/.phpunit.result.cache
-/src/storage/framework/cache/data/*
-/src/storage/framework/sessions/*
-/src/storage/framework/views/*
-/src/storage/logs/*.log
-/src/bootstrap/cache/*.php
 
+/src/storage/logs/*
+!/src/storage/logs/.gitkeep
+
+/src/storage/framework/cache/*
+!/src/storage/framework/cache/.gitkeep
+
+/src/storage/framework/sessions/*
+!/src/storage/framework/sessions/.gitkeep
+
+/src/storage/framework/views/*
+!/src/storage/framework/views/.gitkeep
+
+/src/storage/api-docs/*
+!/src/storage/api-docs/.gitkeep
+
+/src/bootstrap/cache/*
+!/src/bootstrap/cache/.gitkeep
+
+# -------------------------
+# OS files
 .DS_Store
 Thumbs.db
