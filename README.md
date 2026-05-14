@@ -33,7 +33,7 @@ http://localhost:8080
  
 ## 📖 Swagger UI 
 ```
-http://localhost:8000/api/documentation
+http://localhost:8080/api/documentation
 
 ```
 
