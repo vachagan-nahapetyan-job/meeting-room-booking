@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Route;
 | Meeting Room Booking API
 |--------------------------------------------------------------------------
 |
-| Все маршруты без авторизации — user_id передаётся в теле запроса / query.
-|
+|  All routes are public — user_id is passed in request body.
 */
 
 // Rooms
@@ -21,3 +20,8 @@ Route::get('/rooms/{room}/bookings', [BookingController::class, 'byRoom']);
 // Bookings
 Route::post('/bookings', [BookingController::class, 'store']);
 Route::get('/bookings', [BookingController::class, 'byUser']);
+
+// //Swagger
+Route::get('/documentation', function () {
+    return view('l5-swagger::index');
+});
