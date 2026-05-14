@@ -29,16 +29,13 @@ Verify it works.The API will be available at:
 ```
 http://localhost:8080
 
-```.
+```
  
----
-
 ## 📖 Swagger UI 
 ```
 http://localhost:8000/api/documentation
 
 ```
----
 
 ## Rooms List 
 
@@ -47,7 +44,6 @@ http://localhost:8080/api/rooms
 
 ```
 
----
 
 ## 🇷🇺 Быстрый старт
 
@@ -68,11 +64,11 @@ docker compose up -d --build
 4. `php artisan db:seed` — 4 тестовые переговорки (Alpha, Beta, Gamma, Delta)
 
 Проверка:
+
 ```
 http://localhost:8080
 
 ```
----
 
 ## Stack
 
