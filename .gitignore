@@ -9,6 +9,9 @@
 /src/storage/framework/cache/*
 !/src/storage/framework/cache/.gitkeep
 
+!/src/storage/framework/cache/data/
+!/src/storage/framework/cache/data/.gitkeep
+
 /src/storage/framework/sessions/*
 !/src/storage/framework/sessions/.gitkeep
 
